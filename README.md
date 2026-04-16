@@ -2,6 +2,8 @@
 
 A professional, lightweight automated tool built in **Java 17** to monitor the availability and latency of web services. This project demonstrates clean architecture, modern Java features, and integration with third-party notification systems via Webhooks.
 
+![Java CI with Maven](https://github.com/HowardP98/api-monitor-bot/actions/workflows/maven.yml/badge.svg)
+
 ## 🎯 Purpose
 
 In production environments, knowing when an API is down before your users do is critical. This tool automates that process by periodically checking endpoints, measuring response times, and firing instant alerts to **Discord** or **Slack** when issues are detected.
