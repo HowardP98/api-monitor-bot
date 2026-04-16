@@ -8,13 +8,13 @@ class ApiCheckerTest {
 
     @Test
     void testCheckEndpointIsUp() {
-        // Arrange: Preparamos un endpoint real que sabemos que funciona
+        // Arrange
         Endpoint google = new Endpoint("Google", "https://www.google.com", 5);
 
-        // Act: Ejecutamos nuestro método
+        // Act
         ApiChecker.CheckResult result = ApiChecker.check(google);
 
-        // Assert: Comprobamos que el resultado es el esperado
+        // Assert
         assertTrue(result.isUp, "El endpoint debería estar activo");
         assertEquals("", result.errorMessage, "No debería haber mensaje de error");
         assertTrue(result.responseTimeSeconds > 0, "El tiempo de respuesta debe ser mayor a 0");
@@ -22,9 +22,8 @@ class ApiCheckerTest {
 
     @Test
     void testCheckEndpointReturnsError() {
-        // Arrange: Usamos httpstat.us, un servicio gratuito para simular errores HTTP
-        // Este endpoint siempre devuelve un Error 500 (Internal Server Error)
-        Endpoint badEndpoint = new Endpoint("Error 500", "https://httpstat.us/500", 5);
+        // Arrange: Usamos httpbin.org para simular un Error 500
+        Endpoint badEndpoint = new Endpoint("Error 500", "https://httpbin.org/status/500", 5);
 
         // Act
         ApiChecker.CheckResult result = ApiChecker.check(badEndpoint);
@@ -36,9 +35,9 @@ class ApiCheckerTest {
 
     @Test
     void testCheckEndpointTimeout() {
-        // Arrange: Este endpoint de prueba está configurado para tardar 3 segundos en responder.
-        // Le configuramos a nuestro monitor un timeout estricto de 1 segundo.
-        Endpoint slowEndpoint = new Endpoint("Lento", "https://httpstat.us/200?sleep=3000", 1);
+        // Arrange: httpbin.org/delay/3 tarda exactamente 3 segundos en responder
+        // Configuramos nuestro monitor con un límite estricto de 1 segundo
+        Endpoint slowEndpoint = new Endpoint("Lento", "https://httpbin.org/delay/3", 1);
 
         // Act
         ApiChecker.CheckResult result = ApiChecker.check(slowEndpoint);
@@ -50,7 +49,7 @@ class ApiCheckerTest {
     
     @Test
     void testCheckEndpointInvalidUrl() {
-        // Arrange: Una URL que no existe ni tiene un formato válido
+        // Arrange
         Endpoint invalidEndpoint = new Endpoint("Inválido", "esto-no-es-una-url", 5);
 
         // Act
