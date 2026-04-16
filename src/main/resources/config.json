@@ -1,0 +1,15 @@
+{
+    "webhookUrl": "TU_URL_DE_WEBHOOK_AQUI",
+    "endpoints": [
+      {
+        "name": "Google Homepage",
+        "url": "https://www.google.com",
+        "timeoutSeconds": 2
+      },
+      {
+        "name": "Mi API Falsa",
+        "url": "https://jsonplaceholder.typicode.com/users",
+        "timeoutSeconds": 3
+      }
+    ]
+  }
